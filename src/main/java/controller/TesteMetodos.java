@@ -2,8 +2,10 @@ package controller;
 
 import model.Cliente;
 import model.Pessoa;
-import service.PessoaService;
-import service.ValidacaoService;
+import model.Venda;
+import model.Vendedor;
+import service.*;
+import view.GerenciamentoVendaView;
 import view.MenuView;
 import view.PessoaView;
 
@@ -20,19 +22,28 @@ public class TesteMetodos {
         Scanner scanner = new Scanner(System.in);
 
         ValidacaoService validacaoService = new ValidacaoService(pessoas);
+        ClienteService clienteService = new ClienteService(pessoas, validacaoService);
+        VendedorService vendedorService = new VendedorService(pessoas, validacaoService);
+
+        Cliente cliente = new Cliente();
+
+        Vendedor vendedor = new Vendedor();
+
+        List<Venda> vendasCadastradas = new ArrayList<>();
 
         PessoaService pessoaService = new PessoaService(pessoas);
-        PessoaView pessoaView  = new PessoaView(validacaoService, pessoaService, scanner);
-
-        MenuView menuView = new MenuView(scanner, pessoaView);
+        PessoaView pessoaView  = new PessoaView(scanner, validacaoService, pessoaService,clienteService, vendedorService );
+        GerenciamentoVendaService gerenciamentoVendaService = new GerenciamentoVendaService(cliente, vendedor, vendasCadastradas, validacaoService);
+        GerenciamentoVendaView gerenciamentoVendaView = new GerenciamentoVendaView(scanner, validacaoService, gerenciamentoVendaService,vendasCadastradas);
+        MenuView menuView = new MenuView(scanner, pessoaView, gerenciamentoVendaView);
 
         System.out.println(validacaoService.validaEmail("f@gmail.com"));
 
         //System.out.println(validacaoService.nomeENumeroOuVazio("ff"));
 
-        Pessoa cliente = new Cliente();
+        Pessoa cliente1 = new Cliente();
 
-        pessoaService.cadastrar(cliente,"Meire", "00385713908", "jucemeirelopes@gmail.com");
+        pessoaService.cadastrar(cliente1,"Meire", "00385713908", "jucemeirelopes@gmail.com");
 
         for (Pessoa pessoa : pessoas) {
             System.out.println(pessoa.getNome());
@@ -43,6 +54,7 @@ public class TesteMetodos {
 
         //System.out.println(pessoaView.registraPessoa());
         menuView.iniciarPrograma();
+
 
 
     }

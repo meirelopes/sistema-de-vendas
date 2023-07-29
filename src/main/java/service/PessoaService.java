@@ -1,6 +1,5 @@
 package service;
 
-import model.Cliente;
 import model.Pessoa;
 
 import java.util.List;

@@ -3,9 +3,12 @@ package view;
 import model.Cliente;
 import model.Pessoa;
 import model.Vendedor;
+import service.ClienteService;
 import service.PessoaService;
 import service.ValidacaoService;
+import service.VendedorService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class PessoaView {
@@ -14,12 +17,17 @@ public class PessoaView {
     ValidacaoService validacaoService;
 
     PessoaService pessoaService;
+    ClienteService clienteService;
+    VendedorService vendedorService;
 
-    public PessoaView(ValidacaoService validacaoService, PessoaService pessoaService, Scanner scanner) {
+    public PessoaView(Scanner scanner, ValidacaoService validacaoService, PessoaService pessoaService
+            , ClienteService clienteService, VendedorService vendedorService) {
 
+        this.scanner = scanner;
         this.validacaoService = validacaoService;
         this.pessoaService = pessoaService;
-        this.scanner = scanner;
+        this.clienteService = clienteService;
+        this.vendedorService = vendedorService;
 
     }
 
@@ -33,6 +41,7 @@ public class PessoaView {
         String email = registraEmail();
 
         pessoaService.cadastrar(pessoa, nome, cpf, email);
+        registraPessoa();
 
     }
 
@@ -129,26 +138,91 @@ public class PessoaView {
     // Cria o objeto de acordo com a escolha - testado
     public Pessoa registraPessoa() {
 
-        System.out.println("Digite 1 para cadastrar cliente ou 2 para vendedor:");
+        int escolha;
 
         Pessoa pessoa = null;
 
-        int escolha = scanner.nextInt();
+        do {
 
-        if (escolha == 1) {
+            System.out.println("Digite 1 para cadastrar cliente ou 2 para vendedor:");
 
-            pessoa = new Cliente();
+            escolha = scanner.nextInt();
 
-        } else if (escolha == 2) {
+            if (escolha == 1) {
 
-            pessoa = new Vendedor();
+                pessoa = new Cliente();
 
-        } else {
+            } else if (escolha == 2) {
 
-            System.out.println("Valor inválido!");
-        }
+                pessoa = new Vendedor();
+
+            } else {
+
+                System.out.println("Valor inválido!");
+            }
+        } while (escolha != 1 && escolha != 2);
 
         return pessoa;
+
+    }
+
+    // Método para usuário escolher listar clientes ou vendedores
+
+    public void listaClientesOuVendedores () {
+
+        int escolha;
+
+        do {
+
+            System.out.println("Digite 1 para listar clientes cadastrados ou 2 para vendedores cadastrados:");
+
+            escolha = scanner.nextInt();
+
+            if (escolha == 1) {
+
+               listaClientes();
+
+            } else if (escolha == 2) {
+
+                listarVendedores();
+
+            } else {
+
+                System.out.println("Valor inválido!");
+
+            }
+
+        } while (escolha != 1 && escolha != 2);
+
+
+    }
+
+    public void listaClientes() {
+
+        List<Cliente> clientes = clienteService.listaClientes();
+        for (Cliente cliente : clientes) {
+
+            System.out.println(cliente.getNome());
+            System.out.println(cliente.getCpf());
+            System.out.println(cliente.getEmail());
+            System.out.println("-----------------------------------");
+
+        }
+
+    }
+
+    public void listarVendedores() {
+
+        List<Vendedor> vendedores = vendedorService.listaVendedores();
+
+        for (Vendedor vendedor : vendedores) {
+
+            System.out.println(vendedor.getNome());
+            System.out.println(vendedor.getCpf());
+            System.out.println(vendedor.getEmail());
+            System.out.println("-----------------------------------");
+
+        }
 
     }
 

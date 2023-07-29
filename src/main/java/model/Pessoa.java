@@ -33,8 +33,5 @@ public abstract class Pessoa {
         this.email = email;
     }
 
-    public abstract void cadastrar();
-
-    public  abstract void listar();
 
 }

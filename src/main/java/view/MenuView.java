@@ -1,18 +1,18 @@
 package view;
 
-import model.Cliente;
-
 import java.util.Scanner;
 
 public class MenuView {
 
     Scanner scanner;
     PessoaView pessoaView;
+    GerenciamentoVendaView gerenciamentoVendaView;
 
-    public MenuView(Scanner scanner, PessoaView pessoaView) {
+    public MenuView(Scanner scanner, PessoaView pessoaView, GerenciamentoVendaView gerenciamentoVendaView) {
 
         this.scanner = scanner;
         this.pessoaView = pessoaView;
+        this.gerenciamentoVendaView = gerenciamentoVendaView;
 
     }
 
@@ -25,10 +25,10 @@ public class MenuView {
             System.out.println("Escolha uma opção:");
             System.out.println("1 - Cadastro de cliente/vendedor"); //ok
             System.out.println("2 - Cadastrar venda");
-            System.out.println("3 - Listar vendedores/cientes");
-            System.out.println("4 - Listar vendas por vendedor");
-            System.out.println("5 - Listar compras por cliente");
-            System.out.println("6 - Listar total de vendas");
+            System.out.println("3 - Listar vendedores/cientes"); //ok
+            System.out.println("4 - Listar total de vendas");
+            System.out.println("5 - Listar vendas por vendedor");
+            System.out.println("6 - Listar compras por cliente");
             System.out.println("7 - Sair");
             System.out.print("Escolha: ");
             escolha = scanner.nextInt();
@@ -51,27 +51,27 @@ public class MenuView {
 
             case 2:
 
-              //  rebeldeView.atualizaLocalizacao();
+                gerenciamentoVendaView.cadastrarVenda();
                 break;
 
             case 3:
 
-             //   inventarioView.adicionaProduto();
+                pessoaView.listaClientesOuVendedores();
                 break;
 
             case 4:
 
-              //  relatorioView.obterPorcentagemDeRebeldes();
+                gerenciamentoVendaView.listarVenda();
                 break;
 
             case 5:
 
-              //  relatorioView.obterPorcentagemDeTraidores();
+                gerenciamentoVendaView.listarVendasPorVendedor();
                 break;
 
             case 6:
 
-              //  relatorioView.relatarTraidor();
+                gerenciamentoVendaView.listarComprasPorCliente();
                 break;
 
             case 7:

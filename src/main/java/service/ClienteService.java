@@ -5,15 +5,12 @@ import model.Pessoa;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ClienteService {
 
     List<Pessoa> pessoas;
 
     ValidacaoService validacaoService;
-    Scanner scanner = new Scanner(System.in);
-
 
     public ClienteService(List<Pessoa> pessoas, ValidacaoService validacaoService) {
 

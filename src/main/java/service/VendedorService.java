@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class VendedorService {
-    Scanner scanner = new Scanner(System.in);
-
     List<Pessoa> pessoas;
 
     ValidacaoService validacaoService;

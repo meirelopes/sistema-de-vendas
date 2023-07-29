@@ -1,9 +1,7 @@
 package service;
 
-import model.Cliente;
 import model.Pessoa;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -99,22 +97,6 @@ public class ValidacaoService {
         // Verificando se o e-mail corresponde ao padrão definido
         return matcher.matches();
     }
-
-    // Método verifica se valor informado é um número
-    public Double validaValor(String entrada) {
-
-        Double valorTotal = Double.parseDouble(entrada);
-
-        if (Double.isNaN(valorTotal)) {
-
-            throw new InputMismatchException("Valor inválido!");
-
-        }
-
-        return valorTotal;
-
-    }
-
 
 
     // Método retorna um cliente da lista, levando em conta o cpf
