@@ -15,91 +15,118 @@ public class PessoaView {
 
     PessoaService pessoaService;
 
+    public PessoaView(ValidacaoService validacaoService, PessoaService pessoaService, Scanner scanner) {
+
+        this.validacaoService = validacaoService;
+        this.pessoaService = pessoaService;
+        this.scanner = scanner;
+
+    }
+
     // Método cadastra cliente
 
     public void cadastrarPessoa() {
 
+        Pessoa pessoa = registraPessoa();
         String nome = registraNome();
         String cpf = registraCpf();
         String email = registraEmail();
-        Pessoa pessoa = registraPessoa();
 
         pessoaService.cadastrar(pessoa, nome, cpf, email);
 
     }
 
 
+    // Método pede o nome ao usuário e verifica se ele é vazio ou um valor numérico - testado
     public String registraNome() {
+        boolean eVazio;
 
-        System.out.println("Informe o nome:");
+        do {
+            System.out.println("Informe o nome:");
+            scanner.nextLine();
+            String nome = scanner.nextLine();
 
-        String nome = scanner.nextLine();
+            eVazio = validacaoService.nomeENumeroOuVazio(nome);
 
-        if (validacaoService.nomeENumeroOuVazio(nome)) {
+            if (eVazio) {
+                System.out.println("Nome não pode ser vazio ou valor numérico!");
+            } else {
+                return nome;
+            }
+        } while (eVazio);
 
-            System.out.println("Nome não pode ser vaxio ou valor numérico!");
-
-            System.exit(1);
-
-            return null;
-
-        }
-        return nome;
+        return null;
     }
 
+    // Método pede o cpf ao usuário e verifica se está já registrado no sistema e se está no formato adequado - testado
     public String registraCpf() {
 
-        System.out.println("Informe o CPF:");
+        boolean eCadastradoCpf;
 
-        String cpf = scanner.nextLine();
+        boolean eValidoCpf;
 
-        if (validacaoService.eCadastradoCpf(cpf)) {
+        do {
+            System.out.println("Informe o CPF:");
 
-            System.out.println("Já cadastrado no sistema.");
+            String cpf = scanner.nextLine();
 
-            System.exit(1);
+            eCadastradoCpf = validacaoService.eCadastradoCpf(cpf);
+            eValidoCpf = validacaoService.validaCPF(cpf);
 
-            return null;
+            if (eCadastradoCpf) {
 
-        } else if (validacaoService.validaCPF(cpf) == false) {
+                System.out.println("Já cadastrado no sistema.");
 
-            System.out.println("O CPF informado é inválido.");
+            } else if (eValidoCpf == false) {
 
-            System.exit(1);
+                System.out.println("Formato inválido!");
 
-            return null;
+            } else {
 
-        }
-        return cpf;
+                return cpf;
+            }
+
+        } while (eCadastradoCpf || eValidoCpf == false);
+
+        return null;
     }
 
 
+    // Método pede o e-mail ao usuário e verifica se está já registrado no sistema e se está no formato adequado - testado
     public String registraEmail() {
 
-        System.out.println("E-mail cliente:");
+        boolean eCadastradoEmail;
 
-        String email = scanner.nextLine();
-        if (validacaoService.eCadastradoEmail(email)) {
+        boolean eValidoEmail;
 
-            System.out.println("E-mail já cadastrado.");
+        do {
+            System.out.println("Informe o e-mail:");
 
-            System.exit(1);
+            String email = scanner.nextLine();
 
-            return null;
+            eCadastradoEmail = validacaoService.eCadastradoEmail(email);
+            eValidoEmail = validacaoService.validaEmail(email);
 
-        } else if (validacaoService.validaEmail(email) == false) {
+            if (eCadastradoEmail) {
 
-            System.out.println("O e-mail informado é inválido.");
-            System.exit(1);
+                System.out.println("Já cadastrado no sistema.");
 
-            return null;
+            } else if (eValidoEmail == false) {
 
-        }
+                System.out.println("Formato inválido!");
 
-        return email;
+            } else {
 
+                return email;
+            }
+
+        } while (eCadastradoEmail || eValidoEmail == false);
+
+        return null;
     }
 
+    // Método que pergunta ao usuário se ele deseja fazer um novo registro de vendedor ou de cliente.
+    // Cria o objeto de acordo com a escolha - testado
     public Pessoa registraPessoa() {
 
         System.out.println("Digite 1 para cadastrar cliente ou 2 para vendedor:");
@@ -108,7 +135,7 @@ public class PessoaView {
 
         int escolha = scanner.nextInt();
 
-        if(escolha == 1) {
+        if (escolha == 1) {
 
             pessoa = new Cliente();
 
@@ -124,7 +151,6 @@ public class PessoaView {
         return pessoa;
 
     }
-
 
 
 }

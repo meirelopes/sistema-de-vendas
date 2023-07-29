@@ -9,6 +9,12 @@ public class MenuView {
     Scanner scanner;
     PessoaView pessoaView;
 
+    public MenuView(Scanner scanner, PessoaView pessoaView) {
+
+        this.scanner = scanner;
+        this.pessoaView = pessoaView;
+
+    }
 
     public void iniciarPrograma() {
 
@@ -17,7 +23,7 @@ public class MenuView {
         do {
 
             System.out.println("Escolha uma opção:");
-            System.out.println("1 - Cadastro de cliente/vendedor");
+            System.out.println("1 - Cadastro de cliente/vendedor"); //ok
             System.out.println("2 - Cadastrar venda");
             System.out.println("3 - Listar vendedores/cientes");
             System.out.println("4 - Listar vendas por vendedor");

@@ -18,7 +18,7 @@ public class ValidacaoService {
 
     }
 
-    // Método verifica se o nome digitado é um número ou valor vazio
+    // Método verifica se o nome digitado é um número ou valor vazio - testado
     public boolean nomeENumeroOuVazio(String nome) {
 
         for (char c : nome.toCharArray()) {
@@ -33,7 +33,7 @@ public class ValidacaoService {
     }
 
 
-    // Método verifica se o CPF contém 11 digitos e se não são dígitos iguais
+    // Método verifica se o CPF contém 11 digitos - testado
     public boolean validaCPF(String cpf) {
 
         cpf = cpf.replaceAll("\\D+", "");
@@ -52,7 +52,7 @@ public class ValidacaoService {
     }
 
 
-    // Método verifica se a pessoa já é cadastrada no sistema recebendo o cpf
+    // Método verifica se a pessoa já é cadastrada no sistema recebendo o cpf - testado
     public boolean eCadastradoCpf(String cpf) {
 
         for (Pessoa pessoa : pessoas) {
