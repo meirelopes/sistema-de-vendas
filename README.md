@@ -1,4 +1,4 @@
-# desafio2 - modulo3
+# cadastro de vendas
 <p>Sistema responsável por registros de vendas de uma organização. </p>
 
 ## Funcionalidades: 
