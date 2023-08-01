@@ -55,9 +55,9 @@ public class ValidacaoService {
 
         for (Pessoa pessoa : pessoas) {
 
-            if(pessoa.getCpf().equals(cpf)) {
+            if (pessoa.getCpf().equals(cpf)) {
 
-               return true;
+                return true;
 
             }
 
@@ -72,7 +72,7 @@ public class ValidacaoService {
 
         for (Pessoa pessoa : pessoas) {
 
-            if(pessoa.getEmail().equals(email)) {
+            if (pessoa.getEmail().equals(email)) {
 
                 return true;
 

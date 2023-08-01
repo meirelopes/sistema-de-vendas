@@ -1,6 +1,8 @@
 package view;
 
+import model.Cliente;
 import model.Venda;
+import model.Vendedor;
 import service.GerenciamentoVendaService;
 import service.ValidacaoService;
 
@@ -26,10 +28,40 @@ public class GerenciamentoVendaView {
     }
 
     public void cadastrarVenda() {
+        boolean cpfEValido = false;
+        String cpfCliente;
+        String cpfVendedor;
+        do {
 
-        String cpfCliente = registraCpf();
+            System.out.println("Informe o CPF do cliente:");
+            cpfCliente = registraCpf();
+            if (validacaoService.obterPorCpf(cpfCliente) instanceof Cliente) {
+                cpfEValido = true;
 
-        String cpfVendedor = registraCpf();
+            } else {
+                cpfEValido = false;
+                System.out.println("Cpf informado não é de um cliente!");
+
+            }
+        } while (!cpfEValido);
+
+        do {
+            System.out.println("Informe o CPF do vendedor:");
+            cpfVendedor = registraCpf();
+            if (validacaoService.obterPorCpf(cpfVendedor) instanceof Vendedor) {
+
+                cpfEValido = true;
+
+            } else {
+                cpfEValido = false;
+
+                System.out.println("Cpf informado não é de um vendedor!");
+
+            }
+
+
+        } while (!cpfEValido);
+
 
         Double valorTotal = registraValorTotal();
 
@@ -39,49 +71,81 @@ public class GerenciamentoVendaView {
 
     }
 
-
+    // Testado
     public String registraCpf() {
 
-        System.out.println("Informe o cpf:");
+        boolean evalido = false;
 
-        String cpf = scanner.nextLine();
+        String cpf;
 
-        if (validacaoService.validaCPF(cpf) == false) {
+        do {
 
-            System.out.println("O CPF informado é inválido.");
+            System.out.println("CPF:");
+
+            cpf = scanner.nextLine();
+
+            if (validacaoService.validaCPF(cpf) == false) {
+
+                System.out.println("O CPF informado é inválido.");
 
 
-        } else if (validacaoService.eCadastradoCpf(cpf) == false) {
+            } else if (validacaoService.eCadastradoCpf(cpf) == false) {
 
-            System.out.println("Não cadastrado no sistema!");
+                System.out.println("Não cadastrado no sistema!");
 
-        }
+            } else {
+
+                evalido = true;
+            }
+
+
+        } while (!evalido);
+
 
         return cpf;
 
     }
 
+// Ainda permmite espaço em branco
     public void desajaCadastrarOutraVenda() {
+
+        boolean valorValido = false;
 
         int sair;
 
         do {
-            System.out.println("Deseja cadastrar outro venda? (Digite 0 para sim ou 1 para não)");
+            try {
 
-            sair = scanner.nextInt();
+                System.out.println("Deseja cadastrar outro venda? (Digite 0 para sim ou 1 para não)");
 
-            scanner.nextLine();
+                sair = scanner.nextInt();
 
-        } while (sair != 0 && sair != 1);
+                scanner.nextLine();
+                valorValido = true;
 
-        if (sair == 1) {
+                if (sair == 1) {
 
-            return;
+                    return;
 
-        } else if (sair == 0) {
+                } else if (sair == 0) {
 
-            cadastrarVenda();
-        }
+                    cadastrarVenda();
+                } else {
+
+                    System.out.println("Valor inválido!");
+                    valorValido = false;
+
+                }
+
+            } catch (InputMismatchException e) {
+
+                System.out.println("Valor inválido");
+                scanner.nextLine();
+
+            }
+
+        } while (!valorValido);
+
     }
 
     public Double registraValorTotal() {
@@ -186,5 +250,6 @@ public class GerenciamentoVendaView {
 
         }
     }
+
 
 }

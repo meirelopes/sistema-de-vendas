@@ -36,10 +36,8 @@ public class GerenciamentoVendaService {
 
         Venda venda = new Venda();
 
-        cliente = (Cliente) validacaoService.obterPorCpf(cpfCliente);
         venda.setCliente(cliente);
 
-        vendedor = (Vendedor) validacaoService.obterPorCpf(cpfVendedor);
         venda.setVendedor(vendedor);
 
         venda.setValorTotal(valorVenda);

@@ -32,16 +32,17 @@ public class TesteMetodos {
         List<Venda> vendasCadastradas = new ArrayList<>();
 
         PessoaService pessoaService = new PessoaService(pessoas);
-        PessoaView pessoaView  = new PessoaView(scanner, validacaoService, pessoaService,clienteService, vendedorService );
+        PessoaView pessoaView = new PessoaView(scanner, validacaoService, pessoaService, clienteService, vendedorService);
         GerenciamentoVendaService gerenciamentoVendaService = new GerenciamentoVendaService(cliente, vendedor, vendasCadastradas, validacaoService);
-        GerenciamentoVendaView gerenciamentoVendaView = new GerenciamentoVendaView(scanner, validacaoService, gerenciamentoVendaService,vendasCadastradas);
+        GerenciamentoVendaView gerenciamentoVendaView = new GerenciamentoVendaView(scanner, validacaoService, gerenciamentoVendaService, vendasCadastradas);
         MenuView menuView = new MenuView(scanner, pessoaView, gerenciamentoVendaView);
 
 
-
         Pessoa cliente1 = new Cliente();
+        Pessoa vendedor1 = new Vendedor();
 
-        pessoaService.cadastrar(cliente1,"Meire", "00385713908", "jucemeirelopes@gmail.com");
+        pessoaService.cadastrar(cliente1, "Meire", "00385713908", "jucemeirelopes@gmail.com");
+        pessoaService.cadastrar(vendedor1, "Suzi", "00385713907", "suzi@gmail.com");
 
         for (Pessoa pessoa : pessoas) {
             System.out.println(pessoa.getNome());
@@ -50,9 +51,10 @@ public class TesteMetodos {
 
         }
 
-        //System.out.println(pessoaView.registraPessoa());
-        menuView.iniciarPrograma();
+        gerenciamentoVendaView.desajaCadastrarOutraVenda();
 
+        //System.out.println(pessoaView.registraPessoa());
+        //menuView.iniciarPrograma();
 
 
     }
