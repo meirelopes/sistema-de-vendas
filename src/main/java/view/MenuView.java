@@ -1,5 +1,6 @@
 package view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuView {
@@ -16,29 +17,40 @@ public class MenuView {
 
     }
 
+
     public void iniciarPrograma() {
 
         int escolha = 0;
 
+        boolean entradaValida = false;
         do {
+            try {
+                System.out.println("Escolha uma opção:");
+                System.out.println("1 - Cadastro de cliente/vendedor");
+                System.out.println("2 - Cadastrar venda");
+                System.out.println("3 - Listar vendedores/cientes");
+                System.out.println("4 - Listar total de vendas");
+                System.out.println("5 - Listar vendas por vendedor");
+                System.out.println("6 - Listar compras por cliente");
+                System.out.println("7 - Sair");
+                System.out.print("Escolha: ");
+                escolha = scanner.nextInt();
 
-            System.out.println("Escolha uma opção:");
-            System.out.println("1 - Cadastro de cliente/vendedor"); //ok
-            System.out.println("2 - Cadastrar venda");
-            System.out.println("3 - Listar vendedores/cientes"); //ok
-            System.out.println("4 - Listar total de vendas");
-            System.out.println("5 - Listar vendas por vendedor");
-            System.out.println("6 - Listar compras por cliente");
-            System.out.println("7 - Sair");
-            System.out.print("Escolha: ");
-            escolha = scanner.nextInt();
-            acionaMetodo(escolha);
+                if (escolha >= 1 && escolha <= 7) {
+                    entradaValida = true;
+                } else {
+                    System.out.println("Valor inválido. Valor inserido deve ser de 1 a 7.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Digite um número inteiro de 1 a 7.");
+                scanner.nextLine();
+            }
+        } while (!entradaValida);
 
-        } while (escolha < 1 || escolha > 7);
-
+        acionaMetodo(escolha);
         querContinuar();
-
     }
+
 
     public void acionaMetodo(int escolha) {
 

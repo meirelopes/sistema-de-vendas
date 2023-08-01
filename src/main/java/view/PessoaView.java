@@ -8,6 +8,7 @@ import service.PessoaService;
 import service.ValidacaoService;
 import service.VendedorService;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,7 +42,7 @@ public class PessoaView {
         String email = registraEmail();
 
         pessoaService.cadastrar(pessoa, nome, cpf, email);
-        registraPessoa();
+        desajaCadastrarOutraPessoa();
 
     }
 
@@ -52,8 +53,9 @@ public class PessoaView {
 
         do {
             System.out.println("Informe o nome:");
-            scanner.nextLine();
+
             String nome = scanner.nextLine();
+            scanner.nextLine();
 
             eVazio = validacaoService.nomeENumeroOuVazio(nome);
 
@@ -140,27 +142,42 @@ public class PessoaView {
 
         int escolha;
 
+        boolean entradaValida = false;
+
         Pessoa pessoa = null;
-
         do {
+            try {
 
-            System.out.println("Digite 1 para cadastrar cliente ou 2 para vendedor:");
 
-            escolha = scanner.nextInt();
+                System.out.println("Digite 1 para cadastrar cliente ou 2 para vendedor:");
 
-            if (escolha == 1) {
+                escolha = scanner.nextInt();
 
-                pessoa = new Cliente();
+                if (escolha == 1) {
 
-            } else if (escolha == 2) {
+                    entradaValida = true;
 
-                pessoa = new Vendedor();
+                    pessoa = new Cliente();
 
-            } else {
+                } else if (escolha == 2) {
 
-                System.out.println("Valor inválido!");
+                    entradaValida = true;
+
+                    pessoa = new Vendedor();
+
+                } else {
+
+                    System.out.println("Valor inválido!");
+                }
+
+            } catch (InputMismatchException e) {
+
+                System.out.println("Valor inválido. Digite um número inteiro de 1 a 2.");
+                scanner.nextLine();
             }
-        } while (escolha != 1 && escolha != 2);
+        }
+        while (!entradaValida);
+
 
         return pessoa;
 
@@ -168,34 +185,46 @@ public class PessoaView {
 
     // Método para usuário escolher listar clientes ou vendedores
 
-    public void listaClientesOuVendedores () {
+    public void listaClientesOuVendedores() {
 
         int escolha;
 
+        boolean entradaValida = false;
+
         do {
 
-            System.out.println("Digite 1 para listar clientes cadastrados ou 2 para vendedores cadastrados:");
+            try {
 
-            escolha = scanner.nextInt();
+                System.out.println("Digite 1 para listar clientes cadastrados ou 2 para vendedores cadastrados:");
 
-            if (escolha == 1) {
+                escolha = scanner.nextInt();
 
-               listaClientes();
+                if (escolha == 1) {
 
-            } else if (escolha == 2) {
+                    entradaValida = true;
+                    listaClientes();
 
-                listarVendedores();
+                } else if (escolha == 2) {
 
-            } else {
+                    entradaValida = true;
+                    listarVendedores();
 
-                System.out.println("Valor inválido!");
+                } else {
 
+                    System.out.println("Valor inválido!");
+
+                }
+
+            } catch (InputMismatchException e) {
+
+                System.out.println("Valor inválido. Digite um número inteiro de 1 a 2.");
+                scanner.nextLine();
             }
-
-        } while (escolha != 1 && escolha != 2);
-
+        }
+        while (!entradaValida);
 
     }
+
 
     public void listaClientes() {
 
@@ -227,4 +256,46 @@ public class PessoaView {
     }
 
 
+    public void desajaCadastrarOutraPessoa() {
+
+        int sair;
+
+        boolean entradaValida = false;
+
+        do {
+
+            try {
+
+                System.out.println("Deseja realizar outro cadastro? (Digite 0 para sim ou 1 para não)");
+
+                sair = scanner.nextInt();
+
+                scanner.nextLine();
+
+                if (sair == 1) {
+                    entradaValida = true;
+
+                    return;
+
+                } else if (sair == 0) {
+                    entradaValida = true;
+
+                    cadastrarPessoa();
+                } else {
+
+                    System.out.println("Valor inválido.");
+                }
+
+
+            } catch (InputMismatchException e) {
+
+                System.out.println("Valor inválido. Digite 0 ou 1.");
+                scanner.nextLine();
+            }
+
+
+        } while (!entradaValida);
+
+
+    }
 }

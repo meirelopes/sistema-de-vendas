@@ -37,9 +37,7 @@ public class TesteMetodos {
         GerenciamentoVendaView gerenciamentoVendaView = new GerenciamentoVendaView(scanner, validacaoService, gerenciamentoVendaService,vendasCadastradas);
         MenuView menuView = new MenuView(scanner, pessoaView, gerenciamentoVendaView);
 
-        System.out.println(validacaoService.validaEmail("f@gmail.com"));
 
-        //System.out.println(validacaoService.nomeENumeroOuVazio("ff"));
 
         Pessoa cliente1 = new Cliente();
 
