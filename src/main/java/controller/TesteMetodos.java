@@ -33,7 +33,7 @@ public class TesteMetodos {
 
         PessoaService pessoaService = new PessoaService(pessoas);
         PessoaView pessoaView = new PessoaView(scanner, validacaoService, pessoaService, clienteService, vendedorService);
-        GerenciamentoVendaService gerenciamentoVendaService = new GerenciamentoVendaService(cliente, vendedor, vendasCadastradas, validacaoService);
+        GerenciamentoVendaService gerenciamentoVendaService = new GerenciamentoVendaService(vendasCadastradas, validacaoService);
         GerenciamentoVendaView gerenciamentoVendaView = new GerenciamentoVendaView(scanner, validacaoService, gerenciamentoVendaService, vendasCadastradas);
         MenuView menuView = new MenuView(scanner, pessoaView, gerenciamentoVendaView);
 
@@ -51,10 +51,10 @@ public class TesteMetodos {
 
         }
 
-        gerenciamentoVendaView.desajaCadastrarOutraVenda();
+        //System.out.println(gerenciamentoVendaView.registraValorTotal());
 
         //System.out.println(pessoaView.registraPessoa());
-        //menuView.iniciarPrograma();
+        menuView.iniciarPrograma();
 
 
     }

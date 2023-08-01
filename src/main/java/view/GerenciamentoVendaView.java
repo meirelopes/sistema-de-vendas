@@ -6,7 +6,6 @@ import model.Vendedor;
 import service.GerenciamentoVendaService;
 import service.ValidacaoService;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,9 +30,9 @@ public class GerenciamentoVendaView {
         boolean cpfEValido = false;
         String cpfCliente;
         String cpfVendedor;
+        System.out.println("Informe o CPF do cliente:");
+        scanner.nextLine();
         do {
-
-            System.out.println("Informe o CPF do cliente:");
             cpfCliente = registraCpf();
             if (validacaoService.obterPorCpf(cpfCliente) instanceof Cliente) {
                 cpfEValido = true;
@@ -67,7 +66,7 @@ public class GerenciamentoVendaView {
 
         gerenciamentoVendaService.cadastrarVenda(cpfCliente, cpfVendedor, valorTotal);
 
-        desajaCadastrarOutraVenda();
+        desejaCadastrarOutraVenda();
 
     }
 
@@ -78,11 +77,13 @@ public class GerenciamentoVendaView {
 
         String cpf;
 
+
         do {
 
             System.out.println("CPF:");
 
             cpf = scanner.nextLine();
+
 
             if (validacaoService.validaCPF(cpf) == false) {
 
@@ -106,79 +107,58 @@ public class GerenciamentoVendaView {
 
     }
 
-// Ainda permmite espaço em branco
-    public void desajaCadastrarOutraVenda() {
+    // Testado
+        public void desejaCadastrarOutraVenda() {
+            boolean valorValido = false;
+            int sair;
 
-        boolean valorValido = false;
+            do {
+                try {
+                    System.out.println("Deseja cadastrar outra venda? (Digite 0 para sim ou 1 para não)");
 
-        int sair;
+                    String input = scanner.nextLine().trim();
 
-        do {
-            try {
+                    if (!input.isEmpty()) {
+                        sair = Integer.parseInt(input);
 
-                System.out.println("Deseja cadastrar outro venda? (Digite 0 para sim ou 1 para não)");
+                        if (sair == 1) {
+                            return;
+                        } else if (sair == 0) {
+                            valorValido = true;
+                            cadastrarVenda();
+                        } else {
+                            System.out.println("Valor inválido! Digite 0 ou 1.");
+                        }
+                    } else {
+                        System.out.println("Valor não pode ser vazio! Digite 0 ou 1.");
+                    }
 
-                sair = scanner.nextInt();
-
-                scanner.nextLine();
-                valorValido = true;
-
-                if (sair == 1) {
-
-                    return;
-
-                } else if (sair == 0) {
-
-                    cadastrarVenda();
-                } else {
-
-                    System.out.println("Valor inválido!");
-                    valorValido = false;
-
+                } catch (NumberFormatException e) {
+                    System.out.println("Valor inválido! Digite um número inteiro.");
                 }
+            } while (!valorValido);
+        }
 
-            } catch (InputMismatchException e) {
-
-                System.out.println("Valor inválido");
-                scanner.nextLine();
-
-            }
-
-        } while (!valorValido);
-
-    }
 
     public Double registraValorTotal() {
-
         Double valorTotal = null;
 
         do {
-
             try {
                 System.out.println("Informe o valor da venda:");
 
                 String entrada = scanner.nextLine();
 
+                entrada = entrada.replace(',', '.'); // Substituir vírgula por ponto (se houver)
+
                 valorTotal = Double.parseDouble(entrada);
 
-                if (Double.isNaN(valorTotal)) {
-
-                    throw new InputMismatchException("Valor inválido!");
-
-                }
-
-            } catch (InputMismatchException | NumberFormatException e) {
-
-                System.out.println(e.getMessage());
-
-                valorTotal = null;
-
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido! Digite um número válido.");
             }
-
         } while (valorTotal == null);
 
         return valorTotal;
-
     }
 
 

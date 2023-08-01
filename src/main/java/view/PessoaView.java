@@ -273,7 +273,6 @@ public class PessoaView {
                 scanner.nextLine();
 
                 if (sair == 1) {
-                    entradaValida = true;
 
                     return;
 
