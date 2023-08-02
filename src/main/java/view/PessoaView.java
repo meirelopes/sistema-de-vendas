@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PessoaView {
-
     Scanner scanner;
     ValidacaoService validacaoService;
-
     PessoaService pessoaService;
     ClienteService clienteService;
     VendedorService vendedorService;
@@ -32,7 +30,7 @@ public class PessoaView {
 
     }
 
-    // Método cadastra cliente
+    // Método cadastra pessoa no sistema podendo ser um vendedor ou um cliente
 
     public void cadastrarPessoa() {
 
@@ -47,29 +45,36 @@ public class PessoaView {
     }
 
 
-    // Método pede o nome ao usuário e verifica se ele é vazio ou um valor numérico - testado
+    // Método pede o nome ao usuário e verifica se ele é vazio ou um valor numérico
     public String registraNome() {
+
         boolean eVazio;
 
         do {
             System.out.println("Informe o nome:");
 
             String nome = scanner.nextLine();
+
             scanner.nextLine();
 
             eVazio = validacaoService.nomeENumeroOuVazio(nome);
 
             if (eVazio) {
+
                 System.out.println("Nome não pode ser vazio ou valor numérico!");
+
             } else {
+
                 return nome;
+
             }
+
         } while (eVazio);
 
         return null;
     }
 
-    // Método pede o cpf ao usuário e verifica se está já registrado no sistema e se está no formato adequado - testado
+    // Método pede o cpf ao usuário e verifica se está já registrado no sistema e se está no formato adequado
     public String registraCpf() {
 
         boolean eCadastradoCpf;
@@ -82,6 +87,7 @@ public class PessoaView {
             String cpf = scanner.nextLine();
 
             eCadastradoCpf = validacaoService.eCadastradoCpf(cpf);
+
             eValidoCpf = validacaoService.validaCPF(cpf);
 
             if (eCadastradoCpf) {
@@ -103,7 +109,7 @@ public class PessoaView {
     }
 
 
-    // Método pede o e-mail ao usuário e verifica se está já registrado no sistema e se está no formato adequado - testado
+    // Método pede o e-mail ao usuário e verifica se está já registrado no sistema e se está no formato adequado
     public String registraEmail() {
 
         boolean eCadastradoEmail;
@@ -111,11 +117,13 @@ public class PessoaView {
         boolean eValidoEmail;
 
         do {
+
             System.out.println("Informe o e-mail:");
 
             String email = scanner.nextLine();
 
             eCadastradoEmail = validacaoService.eCadastradoEmail(email);
+
             eValidoEmail = validacaoService.validaEmail(email);
 
             if (eCadastradoEmail) {
@@ -136,8 +144,7 @@ public class PessoaView {
         return null;
     }
 
-    // Método que pergunta ao usuário se ele deseja fazer um novo registro de vendedor ou de cliente.
-    // Cria o objeto de acordo com a escolha - testado
+    // Cria o objeto de acordo com a escolha do usuário
     public Pessoa registraPessoa() {
 
         int escolha;
@@ -145,9 +152,10 @@ public class PessoaView {
         boolean entradaValida = false;
 
         Pessoa pessoa = null;
-        do {
-            try {
 
+        do {
+
+            try {
 
                 System.out.println("Digite 1 para cadastrar cliente ou 2 para vendedor:");
 
@@ -173,17 +181,18 @@ public class PessoaView {
             } catch (InputMismatchException e) {
 
                 System.out.println("Valor inválido. Digite um número inteiro de 1 a 2.");
+
                 scanner.nextLine();
             }
         }
-        while (!entradaValida);
 
+        while (!entradaValida);
 
         return pessoa;
 
     }
 
-    // Método para usuário escolher listar clientes ou vendedores
+    // Método para usuário escolher se deseja exibir lista de clientes ou lista de vendedores
 
     public void listaClientesOuVendedores() {
 
@@ -202,11 +211,13 @@ public class PessoaView {
                 if (escolha == 1) {
 
                     entradaValida = true;
+
                     listaClientes();
 
                 } else if (escolha == 2) {
 
                     entradaValida = true;
+
                     listarVendedores();
 
                 } else {
@@ -218,14 +229,17 @@ public class PessoaView {
             } catch (InputMismatchException e) {
 
                 System.out.println("Valor inválido. Digite um número inteiro de 1 a 2.");
+
                 scanner.nextLine();
             }
         }
+
         while (!entradaValida);
 
     }
 
 
+    // Método exibe lista de clientes
     public void listaClientes() {
 
         List<Cliente> clientes = clienteService.listaClientes();
@@ -240,6 +254,7 @@ public class PessoaView {
 
     }
 
+    // Método exibe lista de vendedores
     public void listarVendedores() {
 
         List<Vendedor> vendedores = vendedorService.listaVendedores();
@@ -256,6 +271,7 @@ public class PessoaView {
     }
 
 
+    // Método pergunta se usuário deseja realizar outro cadastro
     public void desajaCadastrarOutraPessoa() {
 
         int sair;
@@ -277,24 +293,25 @@ public class PessoaView {
                     return;
 
                 } else if (sair == 0) {
+
                     entradaValida = true;
 
                     cadastrarPessoa();
+
                 } else {
 
                     System.out.println("Valor inválido.");
                 }
 
-
             } catch (InputMismatchException e) {
 
                 System.out.println("Valor inválido. Digite 0 ou 1.");
+
                 scanner.nextLine();
             }
 
-
         } while (!entradaValida);
 
-
     }
+
 }

@@ -16,7 +16,7 @@ public class ValidacaoService {
 
     }
 
-    // Método verifica se o nome digitado é um número ou valor vazio - testado
+    // Método verifica se o nome digitado é um número ou valor vazio
     public boolean nomeENumeroOuVazio(String nome) {
 
         for (char c : nome.toCharArray()) {
@@ -31,7 +31,7 @@ public class ValidacaoService {
     }
 
 
-    // Método verifica se o CPF contém 11 digitos - testado
+    // Método verifica se o CPF contém 11 digitos
     public boolean validaCPF(String cpf) {
 
         cpf = cpf.replaceAll("\\D+", "");
@@ -50,7 +50,7 @@ public class ValidacaoService {
     }
 
 
-    // Método verifica se a pessoa já é cadastrada no sistema recebendo o cpf - testado
+    // Método verifica se a pessoa já é cadastrada no sistema recebendo o cpf
     public boolean eCadastradoCpf(String cpf) {
 
         for (Pessoa pessoa : pessoas) {
@@ -67,7 +67,7 @@ public class ValidacaoService {
 
     }
 
-    // Método verifica se a pessoa já é cadastrada no sistema recebendo o e-mail
+    // Método verifica se a pessoa já é cadastrada no sistema recebendo
     public boolean eCadastradoEmail(String email) {
 
         for (Pessoa pessoa : pessoas) {
@@ -84,17 +84,15 @@ public class ValidacaoService {
 
     }
 
+    // Mátodo verifica se e-mail está no formato: xxx@xxx.xxx
     public boolean validaEmail(String email) {
-        // Definindo a expressão regular para validação do e-mail
+
         String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 
-        // Compilando a expressão regular em um padrão (Pattern)
         Pattern pattern = Pattern.compile(regex);
 
-        // Criando um objeto Matcher para verificar o e-mail com o padrão
         Matcher matcher = pattern.matcher(email);
 
-        // Verificando se o e-mail corresponde ao padrão definido
         return matcher.matches();
     }
 
@@ -113,6 +111,7 @@ public class ValidacaoService {
         return null;
 
     }
+
 }
 
 

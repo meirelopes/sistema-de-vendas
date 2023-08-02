@@ -17,14 +17,17 @@ public class MenuView {
 
     }
 
-
+    // Método inicia o programa e exibe opções de funcionalidades
     public void iniciarPrograma() {
 
         int escolha = 0;
 
         boolean entradaValida = false;
+
         do {
+
             try {
+
                 System.out.println("Escolha uma opção:");
                 System.out.println("1 - Cadastro de cliente/vendedor");
                 System.out.println("2 - Cadastrar venda");
@@ -37,21 +40,32 @@ public class MenuView {
                 escolha = scanner.nextInt();
 
                 if (escolha >= 1 && escolha <= 7) {
+
                     entradaValida = true;
+
                 } else {
+
                     System.out.println("Valor inválido. Valor inserido deve ser de 1 a 7.");
+
                 }
+
             } catch (InputMismatchException e) {
+
                 System.out.println("Valor inválido. Digite um número inteiro de 1 a 7.");
+
                 scanner.nextLine();
+
             }
+
         } while (!entradaValida);
 
         acionaMetodo(escolha);
+
         querContinuar();
+
     }
 
-
+    // Método chama o método de acordo com a escolha do usuário
     public void acionaMetodo(int escolha) {
 
         switch (escolha) {
@@ -87,13 +101,16 @@ public class MenuView {
                 break;
 
             case 7:
+
                 System.out.println("Fim!");
+
                 System.exit(0);
 
         }
 
     }
 
+    // Método oferece opção se o usuário quer continuar realizando operações no sistema
     public void querContinuar() {
 
         int escolha;
@@ -101,8 +118,11 @@ public class MenuView {
         do {
 
             System.out.println("Deseja realizar outra operação?");
+
             System.out.println("Digite 1 para sim ou 2 para não");
+
             escolha = scanner.nextInt();
+
             if (escolha != 1 && escolha != 2) {
 
                 System.out.println("Opção inválida!");
@@ -112,7 +132,9 @@ public class MenuView {
                 iniciarPrograma();
 
             } else if (escolha == 2) {
+
                 System.out.println("Fim!");
+
                 System.exit(0);
 
             }

@@ -17,20 +17,14 @@ public class TesteMetodos {
 
     public static void main(String[] args) {
 
+        // Instanciando objetos
+
         List<Pessoa> pessoas = new ArrayList<>();
-
         Scanner scanner = new Scanner(System.in);
-
         ValidacaoService validacaoService = new ValidacaoService(pessoas);
         ClienteService clienteService = new ClienteService(pessoas, validacaoService);
         VendedorService vendedorService = new VendedorService(pessoas, validacaoService);
-
-        Cliente cliente = new Cliente();
-
-        Vendedor vendedor = new Vendedor();
-
         List<Venda> vendasCadastradas = new ArrayList<>();
-
         PessoaService pessoaService = new PessoaService(pessoas);
         PessoaView pessoaView = new PessoaView(scanner, validacaoService, pessoaService, clienteService, vendedorService);
         GerenciamentoVendaService gerenciamentoVendaService = new GerenciamentoVendaService(vendasCadastradas, validacaoService);
@@ -38,24 +32,28 @@ public class TesteMetodos {
         MenuView menuView = new MenuView(scanner, pessoaView, gerenciamentoVendaView);
 
 
-        Pessoa cliente1 = new Cliente();
-        Pessoa vendedor1 = new Vendedor();
+        // Criando um cliente e um vendedor para teste
 
-        pessoaService.cadastrar(cliente1, "Meire", "00385713908", "jucemeirelopes@gmail.com");
-        pessoaService.cadastrar(vendedor1, "Suzi", "00385713907", "suzi@gmail.com");
+        Pessoa cliente = new Cliente();
+        Pessoa vendedor = new Vendedor();
+
+        pessoaService.cadastrar(cliente, "Paulo", "00385346788", "paulo@gmail.com");
+        pessoaService.cadastrar(vendedor, "Suzi", "12345678556", "suzi@gmail.com");
+
+        // Imprimindo lista de pessoas
 
         for (Pessoa pessoa : pessoas) {
+
             System.out.println(pessoa.getNome());
             System.out.println(pessoa.getCpf());
             System.out.println(pessoa.getEmail());
+            System.out.println("--------------------------");
 
         }
 
-        //System.out.println(gerenciamentoVendaView.registraValorTotal());
+        // Iniciando o sistema
 
-        //System.out.println(pessoaView.registraPessoa());
         menuView.iniciarPrograma();
-
 
     }
 

@@ -14,7 +14,7 @@ public class PessoaService {
 
     }
 
-    // Método cadastra uma pessoa que pode ser um cliente ou um vendedor - testado
+    // Método cadastra uma pessoa no sistema que pode ser um cliente ou um vendedor
 
     public void cadastrar(Pessoa pessoa, String nome, String cpf, String email) {
 

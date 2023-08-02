@@ -20,13 +20,17 @@ public class ClienteService {
     }
 
 
-    //Método lista clientes cadastrados
+    // Método lista clientes cadastrados no sistema
     public List<Cliente> listaClientes() {
 
         List<Cliente> clientes = new ArrayList<>();
+
         for (Pessoa pessoa : pessoas) {
+
             if (pessoa instanceof Cliente) {
+
                 clientes.add((Cliente) pessoa);
+
             }
         }
 

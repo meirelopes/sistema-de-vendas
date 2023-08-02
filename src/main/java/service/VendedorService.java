@@ -18,13 +18,17 @@ public class VendedorService {
 
     }
 
-    //Método lista vendedores cadastrados
+    //Método lista vendedores cadastrados no sistema
     public List<Vendedor> listaVendedores() {
 
         List<Vendedor> vendedores = new ArrayList<>();
+
         for (Pessoa pessoa : pessoas) {
+
             if (pessoa instanceof Vendedor) {
+
                 vendedores.add((Vendedor) pessoa);
+
             }
         }
 
